@@ -498,8 +498,8 @@ window.QUIZ_DATA = {
 
         testimonialsTitle: 'Alumnas que hicieron El Truco de las Brasileñas',
         testimonials: [
-          { name: 'Fernanda', image: 'images/depo-1.jpeg', text: 'Ya había probado el gimnasio y nada cambiaba. Con El Truco de las Brasileñas mis glúteos ganaron volumen y se levantaron de verdad — hoy el short me queda como siempre quise.' },
-          { name: 'Isabella', image: 'images/depoimento-2.jpg', text: 'Yo no tenía nada de glúteos. Hice El Truco de las Brasileñas en casa y gané forma: quedaron redondos, firmes y en su lugar. Fue lo primero que funcionó para mí.' },
+          { name: 'Fernanda', image: 'images/depo-1.webp', text: 'Ya había probado el gimnasio y nada cambiaba. Con El Truco de las Brasileñas mis glúteos ganaron volumen y se levantaron de verdad — hoy el short me queda como siempre quise.' },
+          { name: 'Isabella', image: 'images/depoimento-2.webp', text: 'Yo no tenía nada de glúteos. Hice El Truco de las Brasileñas en casa y gané forma: quedaron redondos, firmes y en su lugar. Fue lo primero que funcionó para mí.' },
         ],
 
         benefitsTitle: 'Lo que logras en el reto',
