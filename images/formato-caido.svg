@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Silhueta lateral: lombar -> volume que desce -> dobra embaixo -> coxa -->
+  <g stroke="#F2EFE8" stroke-width="12">
+    <path d="M 225 70 Q 300 48 375 70"/>
+    <path d="M 225 70 C 212 150 206 230 218 310 C 226 370 226 440 216 545"/>
+    <path d="M 375 70 C 378 140 362 190 370 232 C 445 262 462 372 400 418 C 384 430 380 440 392 452 C 398 480 392 515 386 545"/>
+  </g>
+  <!-- marca: a dobra embaixo do gluteo -->
+  <path d="M 352 440 Q 392 470 432 436" stroke="#BE123C" stroke-width="10"/>
+</svg>

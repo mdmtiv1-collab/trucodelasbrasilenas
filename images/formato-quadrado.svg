@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Silhueta de costas: cintura -> osso do quadril (canto) -> quebra lateral -> coxa -->
+  <g stroke="#F2EFE8" stroke-width="12">
+    <path d="M 222 60 C 212 110 192 150 170 182 C 158 200 160 222 174 240 C 186 262 184 290 176 318 C 170 345 172 400 180 545"/>
+    <path d="M 378 60 C 388 110 408 150 430 182 C 442 200 440 222 426 240 C 414 262 416 290 424 318 C 430 345 428 400 420 545"/>
+    <path d="M 192 372 C 240 408 290 392 300 372 C 310 392 360 408 408 372"/>
+    <path d="M 300 262 L 300 372"/>
+  </g>
+  <!-- marca: a quebra na lateral, dos dois lados -->
+  <g stroke="#BE123C" stroke-width="10">
+    <path d="M 142 262 Q 154 290 142 318"/>
+    <path d="M 458 262 Q 446 290 458 318"/>
+  </g>
+</svg>

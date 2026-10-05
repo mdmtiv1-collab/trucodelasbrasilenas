@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0B0C0E">
+  <title>El Truco de las Brasileñas — Descubre tu plan</title>
+  <meta property="og:title" content="El Truco de las Brasileñas — Descubre tu plan">
+  <meta property="og:image" content="https://i.ibb.co/93GwmYCC/RESET-2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="quiz-sf.css?v=8">
+  <!-- Pixel de Meta / UTMify / Clarity: agregar aquí los IDs de la versión en español
+       (no se copiaron los del original para no mezclar los datos de las dos versiones). -->
+</head>
+<body>
+  <div class="qb-top">
+    <div class="qb-head">
+      <button class="qb-back" id="qb-back" type="button" aria-label="Volver">&#8592;</button>
+      <div class="qb-brand">
+        <img class="qb-logo" src="images/brenda-avatar.webp" alt="Brenda" width="48" height="48" />
+        <span class="qb-lockup" aria-label="El Truco de las Brasileñas">
+          <span class="qb-lockup-1">EL TRUCO DE</span>
+          <span class="qb-lockup-2">LAS BRASILEÑAS</span>
+        </span>
+      </div>
+    </div>
+    <div class="qb-progress"><div class="qb-progress-fill" id="meter-fill"></div></div>
+  </div>
+
+  <div class="quiz-app" id="quiz-app">
+    <div id="step-container"></div>
+  </div>
+
+  <div id="qb-foot-home">
+    <div class="qb-foot" id="qb-foot">El Truco de las Brasileñas - Pilates en la Pared &middot; Seja Fit</div>
+  </div>
+
+  <div class="cta-dock" id="cta-dock"></div>
+  <div id="modal-root"></div>
+
+  <script>window.FUNNEL_VARIANT = 'QUIZ_SF'; window.FLOW_VERSION = 'quiz-sf-es-v1';</script>
+  <!-- moneda/valor de los eventos de seguimiento: ajustar al checkout en español -->
+  <script>window.__TRACK={"funil":"quiz-sf-es","versao":"quiz-sf-es-v1","valorCents":1990,"oferta":"RK3PMB","nome":"El Truco de las Brasileñas","moeda":"USD"};window.dataLayer=window.dataLayer||[];</script>
+  <script src="tracking.js?v=11"></script>
+  <script src="quiz-sf-data.js?v=11"></script>
+  <!-- CAMBIAR: checkout y página de salida de la versión en español -->
+  <script>window.QUIZ_DATA.checkoutUrl = 'https://checkout.payt.com.br/8b847971f98dea19da6fb0741c8251ce?payment=pix'; window.QUIZ_DATA.backredirectUrl = '/oferta-especial?funnel=quiz-sf-es';</script>
+  <script src="quiz-sf.js?v=11"></script>
+  <script>
+    document.getElementById('qb-back').addEventListener('click', function () {
+      if (typeof window.__quizVoltar === 'function') window.__quizVoltar();
+    });
+  </script>
+</body>
+</html>

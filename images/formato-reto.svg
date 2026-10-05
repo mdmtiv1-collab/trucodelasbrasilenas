@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Silhueta lateral (frente a esquerda): lombar -> gluteo sem curva -> coxa -->
+  <g stroke="#F2EFE8" stroke-width="12">
+    <path d="M 225 70 Q 300 48 375 70"/>
+    <path d="M 225 70 C 212 150 206 230 218 310 C 226 370 226 440 216 545"/>
+    <path d="M 375 70 C 378 150 366 230 370 310 C 372 370 372 440 366 545"/>
+  </g>
+  <!-- marca: onde deveria haver curva, a linha segue reta -->
+  <path d="M 404 215 L 404 405" stroke="#BE123C" stroke-width="10" stroke-dasharray="2 22"/>
+</svg>
