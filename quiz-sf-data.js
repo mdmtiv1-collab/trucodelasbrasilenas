@@ -35,7 +35,7 @@ window.QUIZ_DATA = {
       'No constituyen consulta, diagnóstico, prescripción ni tratamiento médico y no sustituyen la evaluación y autorización ' +
       'de un profesional de la salud. Consulta a un médico antes de comenzar, especialmente si estás embarazada, tienes alguna ' +
       'condición de salud preexistente o tomas medicamentos.',
-    company: 'Seja Fit Ltda · contato@sejafit.site · (11) 92681-0324',
+    company: '',
   },
 
   // ==========================================================================
@@ -473,7 +473,7 @@ window.QUIZ_DATA = {
       body: '<img src="images/brenda-aula-cavala-web.jpg" alt="Brenda dando clase" style="width:100%;margin:10px 0" />' +
         '<b>Brenda</b> — educadora física desde hace <b>más de 15 años</b>, <b>más de 50 mil seguidores</b> en redes y ' +
         '<b>más de 17 mil alumnas</b> en Brasil y en el mundo.\n\n' +
-        'Fundadora de <b>Seja Fit App</b> y referente en <b class="hl-pink">entrenamiento femenino enfocado en glúteos</b>, ' +
+        'Referente en <b class="hl-pink">entrenamiento femenino enfocado en glúteos</b>, ' +
         'especializada en activación, firmeza y proyección de los glúteos <b>sin gimnasio</b>.',
       cta: 'VER MI PLAN',
     },
@@ -527,7 +527,7 @@ window.QUIZ_DATA = {
         bonusesTitle: '🎁 Y además te llevas 3 bonos gratis',
         bonuses: [
           {
-            name: '4 Encuentros en Vivo con el equipo Seja Fit',
+            name: '4 Encuentros en Vivo con el equipo',
             description: 'Entrenas en grupo, resuelves dudas en tiempo real y no abandonas a mitad de camino.',
             price: 'US$ 197,00',
           },
