@@ -12,6 +12,8 @@ module.exports = async (req, res) => {
     'country', String(req.headers['x-vercel-ip-country'] || '')];
   ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((k) => { if (b[k]) f.push(k, String(b[k]).slice(0, 100)); });
   try {
+    const n = (await pipeline([['INCR', 'seq']]))[0];
+    f.push('n', n);
     await pipeline([
       ['HSET', 's:' + id, ...f],
       ['EXPIRE', 's:' + id, TTL],

@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
       sessoes.push({
         id: recentes[i], t0: +h.t0, last: +(h.last || h.t0), max, nome: passos[max] || '',
         checkout: !!h.checkout, src: h.utm_source || '', camp: h.utm_campaign || '',
-        pais: h.country || '', resp,
+        pais: h.country || '', resp, n: h.n || '', alias: h.nome || '',
       });
     });
     res.setHeader('Cache-Control', 'no-store');

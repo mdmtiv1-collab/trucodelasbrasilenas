@@ -23,12 +23,13 @@ table{width:100%;border-collapse:collapse}td,th{padding:6px 8px;border-bottom:1p
 <span id="upd" class="det"></span></header>
 <div class="cards" id="cards"></div>
 <main><section><h2>Embudo por etapa</h2><div id="funil"></div></section>
-<section><h2>Personas (la más reciente primero)</h2><table><thead><tr><th></th><th>Llegó hasta</th><th>Origen</th><th>Hace</th></tr></thead><tbody id="lista"></tbody></table></section></main></div>
+<section><h2>Personas (la más reciente primero)</h2><table><thead><tr><th></th><th>Persona</th><th>Llegó hasta</th><th>Origen</th><th>Hace</th></tr></thead><tbody id="lista"></tbody></table></section></main></div>
 <script>
 var ETAPAS=['formato','incomodo','roupas','tentou','prova_social','tempo_dia','frequencia','refeicoes','idade','mecanismo','processando_1','padrao','bumbum_sonhos','obstaculo','horario','processando_2','pagina_tipo','plano_gerado','pitch'];
 var $=function(i){return document.getElementById(i)},key=''; try{key=localStorage.getItem('pk')||''}catch(e){}
 function ago(ms){var s=Math.round(ms/1000);if(s<60)return s+' s';if(s<3600)return Math.round(s/60)+' min';if(s<86400)return Math.round(s/3600)+' h';return Math.round(s/86400)+' d'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function ren(el){var id=el.getAttribute('data-id');var a=prompt('Nombre para esta persona (vacío = quitar):',el.textContent.replace(' ✏️','').split(' · ')[0]);if(a===null)return;fetch('/api/nome',{method:'POST',headers:{'x-key':key,'Content-Type':'application/json'},body:JSON.stringify({id:id,nome:a})}).then(load)}
 function load(){
   fetch('/api/stats?horas='+$('per').value,{headers:{'x-key':key}}).then(function(r){if(r.status==401)throw 401;return r.json()}).then(function(d){
     $('login').hidden=true;$('app').hidden=false;try{localStorage.setItem('pk',key)}catch(e){}
@@ -41,7 +42,7 @@ function load(){
     $('funil').innerHTML=h;
     $('lista').innerHTML=S.slice(0,200).map(function(s){var on=d.agora-s.last<120000;
       var r=Object.keys(s.resp).map(function(k){return k+': '+s.resp[k]}).join(' · ');
-      return '<tr class="s" title="'+esc(r)+'"><td><span class="live '+(on?'':'off')+'"></span></td><td>'+(s.max<0?'Entró y no avanzó':'Etapa '+(s.max+1)+' · '+esc(s.nome))+(s.checkout?' <span class="buy">🛒 clic en comprar</span>':'')+'<div class="det">'+esc(r)+'</div></td><td>'+esc(s.src||'directo')+(s.camp?'<div class="det">'+esc(s.camp)+'</div>':'')+'</td><td>'+ago(d.agora-s.last)+'</td></tr>'}).join('');
+      return '<tr class="s" title="'+esc(r)+'"><td><span class="live '+(on?'':'off')+'"></span></td><td><a href="#" data-id="'+s.id+'" onclick="ren(this);return false" style="color:#c4b5fd;text-decoration:none">'+esc(s.alias||(s.n?'Visita #'+s.n:'Visita '+s.id.slice(0,4)))+(s.pais?' · '+esc(s.pais):'')+' ✏️</a></td><td>'+(s.max<0?'Entró y no avanzó':'Etapa '+(s.max+1)+' · '+esc(s.nome))+(s.checkout?' <span class="buy">🛒 clic en comprar</span>':'')+'<div class="det">'+esc(r)+'</div></td><td>'+esc(s.src||'directo')+(s.camp?'<div class="det">'+esc(s.camp)+'</div>':'')+'</td><td>'+ago(d.agora-s.last)+'</td></tr>'}).join('');
     $('upd').textContent='actualizado '+new Date().toLocaleTimeString();
   }).catch(function(e){if(e===401){$('app').hidden=true;$('login').hidden=false;$('err').textContent=key?'Contraseña incorrecta':''}})}
 $('go').onclick=function(){key=$('pw').value;load()};$('pw').onkeydown=function(e){if(e.key=='Enter')$('go').click()};
