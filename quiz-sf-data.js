@@ -13,7 +13,7 @@ window.QUIZ_DATA = {
   optionStyle: 'radio',
   // Sem a nota "(Selecciona una de las opciones)": o funil novo não tem.
   optionsNote: '',
-  checkoutUrl: 'https://checkout.payt.com.br/4a4bea40dea96c1b7ffe1aee1168d8ca?payment=pix',
+  checkoutUrl: 'https://pay.hotmart.com/A107907296H?off=1prvupmk&checkoutMode=10',
   funnelTag: 'quiz-sf',
   sendSid: true,
   backredirectUrl: '/oferta-especial-sf?funnel=quiz-sf',
