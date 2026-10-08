@@ -496,7 +496,7 @@ img { max-width: 100%; }
   padding: 12px;
   margin-bottom: 10px;
 }
-.testi-photo { width: 84px; height: 84px; flex-shrink: 0; object-fit: cover; border-radius: var(--radius-sm); }
+.testi-photo { width: 108px; height: 108px; flex-shrink: 0; object-fit: cover; border-radius: var(--radius-sm); }
 .testi-body { min-width: 0; }
 /* 15px sobre o card: texto miudo, mesmo motivo do lockup. */
 .testi-name { font-family: var(--ff-title); font-size: 15px; font-weight: 700; color: var(--energy-text); }
@@ -1325,3 +1325,52 @@ body.quiz-gate-active {
 .quiz-b .pitch-benefits li b { color: var(--bone); }
 /* Oferta rolada ate o fim: o botao fixo nao cobre depoimento, garantia e rodape. */
 .quiz-b #step-container.step-pitch { padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px)); }
+
+/* ==========================================================================
+   Funil novo (versao ES reconstruida dos prints): tela "Encontre o padrao",
+   cartao de curiosidade (post da Brenda) e clipe dentro do bloco C do tipo.
+   So usa as variaveis de cor que o arquivo ja define.
+   ========================================================================== */
+.padrao-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 4px 0 18px; }
+.padrao-chips span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bone);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+.padrao-img { display: block; width: 170px; height: 170px; object-fit: contain; margin: 0 auto 14px; }
+.padrao-p { font-size: 16px; line-height: 1.5; color: var(--bone-dim); margin: 0 0 10px; text-align: center; }
+.padrao-p b { color: var(--bone); font-weight: 700; }
+
+.nota-post { display: block; padding: 16px; margin: 12px 0 14px; }
+.nota-post-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.step-body .nota-post-head img { width: 28px; height: 28px; }
+.nota-post-head span { font-size: 13px; font-weight: 700; color: var(--steel); }
+.nota-post p { margin: 0 0 10px; font-size: 16px; line-height: 1.45; color: var(--bone-dim); }
+.nota-post p b { color: var(--bone); font-weight: 700; }
+.nota-post .nota-post-fim { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--steel); }
+
+.tipo-video { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; margin-top: 14px; background: var(--card-2); }
+
+/* Oferta: bloco "Como funciona" (passos, primeira semana, cartoes). */
+.pitch-videos-grade > .pitch-video:only-child { grid-column: 1 / -1; }
+.como-passos { margin: 14px 0 0; padding-left: 22px; text-align: left; font-size: 16px; line-height: 1.55; color: var(--bone); }
+.como-passos li { margin: 2px 0; }
+.como-h4 { font-family: var(--ff-title); font-size: 15px; font-weight: 700; line-height: 1.3; color: var(--bone); text-align: left; margin: 18px 0 8px; }
+.como-semana { width: 100%; border-collapse: collapse; font-size: 15px; text-align: left; }
+.como-semana th { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--steel); padding: 6px 4px; border-bottom: 1px solid var(--line); }
+.como-semana td { padding: 10px 4px; color: var(--bone-dim); border-bottom: 1px solid var(--line); vertical-align: top; }
+.como-semana td:first-child { font-weight: 700; color: var(--bone); width: 36px; }
+.como-semana td:last-child { white-space: nowrap; text-align: right; width: 74px; }
+.como-semana th:last-child { text-align: right; }
+.como-semana td:nth-child(2) { color: var(--bone); }
+.como-semana .como-descanso td { color: var(--steel); }
+.como-badge { display: inline-block; font-size: 11px; font-weight: 700; color: var(--bone); background: var(--card-2); border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; margin-left: 4px; }
+.como-nota { font-size: 13px; line-height: 1.45; color: var(--steel); text-align: center; margin: 12px 0 0; }
+.como-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin-top: 14px; text-align: left; }
+.como-card .como-h4 { margin: 0 0 6px; }
+.como-card p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--bone-dim); }
+.pitch-price-note { font-size: 13px; line-height: 1.4; color: var(--bone-dim); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }

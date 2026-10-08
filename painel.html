@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Panel del quiz</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:14px/1.4 system-ui,Segoe UI,Arial;background:#0f0d16;color:#eee}
+header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #2a2638}
+h1{font-size:17px;margin:0;flex:1}select,button,input{background:#1b1827;color:#eee;border:1px solid #3a3550;border-radius:8px;padding:7px 10px;font:inherit}
+.cards{display:flex;gap:10px;flex-wrap:wrap;padding:14px 18px}.card{background:#1b1827;border-radius:12px;padding:12px 16px;min-width:140px}
+.card b{display:block;font-size:24px}.card span{color:#a9a3bf;font-size:12px}
+main{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 18px 30px}@media(max-width:900px){main{grid-template-columns:1fr}}
+h2{font-size:15px;margin:10px 0}.row{display:grid;grid-template-columns:34px 130px 1fr 92px;gap:8px;align-items:center;padding:4px 0}
+.bar{background:#241f33;border-radius:6px;height:20px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7C3AED,#A855F7)}
+.n{color:#a9a3bf;text-align:right}.drop{color:#f87171;font-size:12px}
+table{width:100%;border-collapse:collapse}td,th{padding:6px 8px;border-bottom:1px solid #241f33;text-align:left;font-size:13px}th{color:#a9a3bf;font-weight:500}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:5px}.off{background:#555}
+.buy{color:#4ade80;font-weight:600}tr.s{cursor:pointer}.det{color:#a9a3bf;font-size:12px}
+#login{max-width:300px;margin:90px auto;text-align:center}#login input{width:100%;margin-bottom:10px}
+</style></head><body>
+<div id="login" hidden><h1>Panel del quiz</h1><input id="pw" type="password" placeholder="Contraseña"><button id="go">Entrar</button><p id="err" style="color:#f87171"></p></div>
+<div id="app" hidden>
+<header><h1>📊 Panel del quiz — El Truco de las Brasileñas</h1>
+<select id="per"><option value="1">Última hora</option><option value="24" selected>Últimas 24 h</option><option value="168">7 días</option><option value="720">30 días</option></select>
+<span id="upd" class="det"></span></header>
+<div class="cards" id="cards"></div>
+<main><section><h2>Embudo por etapa</h2><div id="funil"></div></section>
+<section><h2>Personas (la más reciente primero)</h2><table><thead><tr><th></th><th>Llegó hasta</th><th>Origen</th><th>Hace</th></tr></thead><tbody id="lista"></tbody></table></section></main></div>
+<script>
+var ETAPAS=['formato','incomodo','roupas','tentou','prova_social','tempo_dia','frequencia','refeicoes','idade','mecanismo','processando_1','padrao','bumbum_sonhos','obstaculo','horario','processando_2','pagina_tipo','plano_gerado','pitch'];
+var $=function(i){return document.getElementById(i)},key=''; try{key=localStorage.getItem('pk')||''}catch(e){}
+function ago(ms){var s=Math.round(ms/1000);if(s<60)return s+' s';if(s<3600)return Math.round(s/60)+' min';if(s<86400)return Math.round(s/3600)+' h';return Math.round(s/86400)+' d'}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function load(){
+  fetch('/api/stats?horas='+$('per').value,{headers:{'x-key':key}}).then(function(r){if(r.status==401)throw 401;return r.json()}).then(function(d){
+    $('login').hidden=true;$('app').hidden=false;try{localStorage.setItem('pk',key)}catch(e){}
+    var S=d.sessoes,N=ETAPAS.length,cnt=[];for(var i=0;i<N;i++)cnt.push(0);
+    S.forEach(function(s){for(var i=0;i<=Math.min(s.max,N-1);i++)cnt[i]++});
+    var ativos=S.filter(function(s){return d.agora-s.last<120000}).length,compras=S.filter(function(s){return s.checkout}).length;
+    $('cards').innerHTML=[['Visitas',S.length],['En línea ahora',ativos],['Vieron la oferta',cnt[N-1]],['Clic en comprar',compras],['Conversión visita→clic',S.length?(compras/S.length*100).toFixed(1)+'%':'–']].map(function(c){return '<div class="card"><b>'+c[1]+'</b><span>'+c[0]+'</span></div>'}).join('');
+    var h='';for(var i=0;i<N;i++){var p=cnt[0]?cnt[i]/cnt[0]*100:0,dr=i&&cnt[i-1]?(1-cnt[i]/cnt[i-1])*100:0;
+      h+='<div class="row"><span class="n">'+(i+1)+'</span><span>'+ETAPAS[i]+'</span><div class="bar"><i style="width:'+p+'%"></i></div><span class="n">'+cnt[i]+' <span class="drop">'+(i&&dr>0?'−'+dr.toFixed(0)+'%':'')+'</span></span></div>'}
+    $('funil').innerHTML=h;
+    $('lista').innerHTML=S.slice(0,200).map(function(s){var on=d.agora-s.last<120000;
+      var r=Object.keys(s.resp).map(function(k){return k+': '+s.resp[k]}).join(' · ');
+      return '<tr class="s" title="'+esc(r)+'"><td><span class="live '+(on?'':'off')+'"></span></td><td>'+(s.max<0?'Entró y no avanzó':'Etapa '+(s.max+1)+' · '+esc(s.nome))+(s.checkout?' <span class="buy">🛒 clic en comprar</span>':'')+'<div class="det">'+esc(r)+'</div></td><td>'+esc(s.src||'directo')+(s.camp?'<div class="det">'+esc(s.camp)+'</div>':'')+'</td><td>'+ago(d.agora-s.last)+'</td></tr>'}).join('');
+    $('upd').textContent='actualizado '+new Date().toLocaleTimeString();
+  }).catch(function(e){if(e===401){$('app').hidden=true;$('login').hidden=false;$('err').textContent=key?'Contraseña incorrecta':''}})}
+$('go').onclick=function(){key=$('pw').value;load()};$('pw').onkeydown=function(e){if(e.key=='Enter')$('go').click()};
+$('per').onchange=load;load();setInterval(function(){if(key)load()},15000);
+</script></body></html>

@@ -1,38 +1,64 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-419">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
+  <!-- Tema escuro: o theme-color acompanha o fundo Ink, senao a barra do
+       navegador no celular continua clara e destoa da primeira tela. -->
   <meta name="theme-color" content="#0B0C0E">
-  <title>El Truco de las Brasileñas — Descubre tu plan</title>
-  <meta property="og:title" content="El Truco de las Brasileñas — Descubre tu plan">
+  <title>Truco de las Brasileñas — Descubre tu plan</title>
+  <meta property="og:title" content="Truco de las Brasileñas — Descubre tu plan">
   <meta property="og:image" content="https://i.ibb.co/93GwmYCC/RESET-2.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Rubik Bold em titulo/numero/preco/CTA, Noto Sans no resto: e a
+       tipografia do molde que este braco copia. O quiz atual usa Inter. -->
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="quiz-sf.css?v=8">
-  <!-- Microsoft Clarity (proyecto de la versión en español) -->
+  <!-- Pixel do Meta, direto no navegador (base code oficial + PageView).
+       Ate 15/09/2026 o pixel vinha por dentro de um container do GTM servido
+       pelo Stape; o container saiu, e com ele saiu uma camada inteira onde
+       uma tag desligada, um gatilho errado ou um loader bloqueado quebrava a
+       medicao sem nenhum erro aparecer. A venda (Purchase) sai do SERVIDOR,
+       pela API de Conversoes, a partir do webhook da Payt; aqui fica so o
+       topo do funil (PageView, ViewContent, InitiateCheckout — ver o motor da
+       pagina) e o cookie _fbp, que e o que casa a venda com a pessoa depois.
+       O id do pixel esta escrito aqui porque NAO e segredo (vai no HTML de
+       todo visitante) e porque HTML estatico nao le variavel de ambiente.
+       Este e o pixel de desinflameja.site; o de truquedacavala.site e outro.
+       Sem <noscript>: a pagina inteira e desenhada por JavaScript, quem esta
+       sem JS nao ve nada pra ser medido. -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','898318576296366');fbq('track','PageView');</script>
+  <!-- Script oficial da UTMify: guarda as utm_* por 7 dias no localStorage e
+       reescreve os links da pagina com utm_* + xcod + sck, que e como a venda
+       chega atribuida no painel dela. data-utmify-prevent-subids: ela nao
+       pendura os sub-ids dela nos links. -->
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+  <!-- Microsoft Clarity (mesmo projeto do quiz atual: os dois bracos deste
+       dominio gravam na mesma conta, e a gravacao mostra qual pagina e). -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yt77xh7zvd");
+    })(window, document, "clarity", "script", "y7x56857dp");
   </script>
-  <!-- Pixel de Meta (versión en español): código base oficial + PageView -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1066004799591780');fbq('track','PageView');</script>
-  <!-- UTMify: pendiente (agregar aquí). -->
 </head>
-<body>
+<body class="quiz-b">
+  <!-- Cabecalho do molde novo: seta de voltar, avatar redondo da Brenda +
+       lockup da marca em TEXTO (nao existe arquivo de logo quadrado) e a
+       barra fina de progresso. O id meter-fill e o que o motor ja sabe
+       pintar; a classe qb-logo fica no avatar porque e ela que o motor troca
+       quando um passo traz headerLogo. -->
   <div class="qb-top">
     <div class="qb-head">
       <button class="qb-back" id="qb-back" type="button" aria-label="Volver">&#8592;</button>
       <div class="qb-brand">
-        <img class="qb-logo" src="images/brenda-avatar.webp" alt="Brenda" width="48" height="48" />
-        <span class="qb-lockup" aria-label="El Truco de las Brasileñas">
-          <span class="qb-lockup-1">EL TRUCO DE</span>
-          <span class="qb-lockup-2">LAS BRASILEÑAS</span>
+        <img class="qb-logo" src="images/brenda-avatar.webp" alt="Carolina" width="48" height="48" />
+        <span class="qb-lockup" aria-label="Truco de las Brasileñas">
+          <span class="qb-lockup-1">TRUCO DE LAS</span>
+          <span class="qb-lockup-2">BRASILEÑAS</span>
         </span>
       </div>
     </div>
@@ -43,22 +69,47 @@
     <div id="step-container"></div>
   </div>
 
+  <!-- O motor move a assinatura pra baixo do botao quando a tela tem CTA e a
+       devolve pra ca quando nao tem; por isso ela mora dentro de um "home". -->
   <div id="qb-foot-home">
-    <div class="qb-foot" id="qb-foot">El Truco de las Brasileñas</div>
+    <div class="qb-foot" id="qb-foot">Truco de las Brasileñas</div>
   </div>
 
   <div class="cta-dock" id="cta-dock"></div>
   <div id="modal-root"></div>
 
-  <script>window.FUNNEL_VARIANT = 'QUIZ_SF'; window.FLOW_VERSION = 'quiz-sf-es-v1';</script>
-  <!-- moneda/valor de los eventos de seguimiento: ajustar al checkout en español -->
-  <script>window.__TRACK={"funil":"quiz-sf-es","versao":"quiz-sf-es-v1","valorCents":1990,"oferta":"RK3PMB","nome":"El Truco de las Brasileñas","moeda":"USD"};window.dataLayer=window.dataLayer||[];</script>
+  <!-- QUIZ_SF e o BRACO NOVO do quiz (mesmas perguntas, design do outro
+       molde). O flow_version e o eixo que o admin usa pra separar este braco
+       do quiz atual (quiz-bumbum-v1) — os dois declaram o mesmo stepName em
+       cada tela de proposito, pro funil tela a tela poder comparar. -->
+  <!-- quiz-sf-v2 (01/10/2026): Pagina do Tipo — tela "Formato do bumbum",
+       pagina por tipo no lugar da projecao e a headline da oferta com o
+       tipo. Versao nova de proposito, pro filtro "Versao do funil" do
+       painel comparar antes e depois. -->
+  <script>window.FUNNEL_VARIANT = 'QUIZ_SF'; window.FLOW_VERSION = 'quiz-sf-v2';</script>
+  <!-- Valor e produto que o motor usa nos eventos do pixel (ViewContent,
+       InitiateCheckout). oferta = codigo do produto na Payt, o mesmo
+       content_id do Purchase que sai do servidor. -->
+  <script>window.__TRACK={"funil":"quiz-sf","versao":"quiz-sf-v2","valorCents":2700,"oferta":"RK3PMB","nome":"Truque da Cavala","moeda":"BRL","pixelId":"898318576296366"};window.dataLayer=window.dataLayer||[];</script>
+  <!-- Sem google-ads.js aqui: a Google tag roda so no truquedacavala.site. O
+       motor chama window.googleAdsIniciarCheckout dentro de um typeof, entao
+       o codigo dele e o MESMO nos dois dominios e aqui simplesmente nao faz
+       nada — ligar a tag um dia e so somar o script nesta linha. -->
   <script src="tracking.js?v=11"></script>
   <script src="quiz-sf-data.js?v=11"></script>
-  <!-- CAMBIAR: checkout y página de salida de la versión en español -->
-  <script>window.QUIZ_DATA.checkoutUrl = 'https://checkout.payt.com.br/8b847971f98dea19da6fb0741c8251ce?payment=pix'; window.QUIZ_DATA.backredirectUrl = '/oferta-especial?funnel=quiz-sf-es';</script>
+  <!-- Desde 01/10/2026 (fim do teste do design) a cara nova vende pelos
+       checkouts do quiz atual DESTE dominio: o R$ 27 aqui e, na saida, a
+       /oferta-especial com o R$ 13,50 dela. O dado e gemeo, entao o valor
+       por dominio entra por cima, antes do motor ler window.QUIZ_DATA (como
+       no /ga). Os checkouts proprios da cara nova (4a4bea40... e
+       6131b05a..., no dado e na /oferta-especial-sf) ficam em stand-by pro
+       proximo teste; o enxuto continua neles. -->
+  <script>window.QUIZ_DATA.checkoutUrl = 'https://checkout.payt.com.br/8b847971f98dea19da6fb0741c8251ce?payment=pix'; window.QUIZ_DATA.backredirectUrl = '/oferta-especial?funnel=quiz-sf';</script>
   <script src="quiz-sf.js?v=11"></script>
   <script>
+    // A seta volta UMA tela pelo motor. history.back() aqui nao serve: o
+    // backredirect empilha tres entradas no historico, entao o "voltar" do
+    // navegador cai nelas em vez de voltar a pergunta anterior.
     document.getElementById('qb-back').addEventListener('click', function () {
       if (typeof window.__quizVoltar === 'function') window.__quizVoltar();
     });

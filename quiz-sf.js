@@ -20,7 +20,7 @@
   // O medidor e opcional: sem os campos ele parte de 0 e vai ate 100.
   var METER_INITIAL = Number(data.meterInitial) || 0;
   var METER_MAX = Number(data.meterMax) || 100;
-  var METER_LABEL = data.meterLabel || 'progreso';
+  var METER_LABEL = data.meterLabel || 'progresso';
 
   var state = {
     stepIndex: 0,
@@ -87,7 +87,7 @@
   function updateMuteBtn() {
     if (!$muteBtn) return;
     $muteBtn.textContent = state.muted ? '🔇' : '🔊';
-    $muteBtn.setAttribute('aria-label', state.muted ? 'Activar sonido' : 'Desactivar sonido');
+    $muteBtn.setAttribute('aria-label', state.muted ? 'Ativar som' : 'Desativar som');
   }
 
   // --- Escape HTML ---
@@ -155,7 +155,7 @@
     var t = String(raw == null ? '' : raw).trim();
     if (!t) return '';
     if (/^\d{1,3}$/.test(t)) { var n = parseInt(t, 10); return (n >= 18 && n <= 80) ? n + ' años' : ''; }
-    return /años/.test(t) ? t : '';
+    return /\baños\b/.test(t) ? t : '';
   }
 
   function atualizaDerivadas() {
@@ -214,7 +214,7 @@
   function parHtml(img, lazy) {
     if (!img || !img.src) return '';
     var rot = img.rotulos
-      ? '<div class="ba-rotulos"><span>' + esc(img.rotuloA || 'DÍA 1') + '</span><span>' + esc(img.rotuloB || 'DÍA 21') + '</span></div>'
+      ? '<div class="ba-rotulos"><span>' + esc(img.rotuloA || 'DIA 1') + '</span><span>' + esc(img.rotuloB || 'DIA 21') + '</span></div>'
       : '';
     var cap = img.caption ? '<div class="ba-caption">' + esc(img.caption) + '</div>' : '';
     return '<div class="ba-card' + (img.rotulos ? ' ba-com-rotulos' : '') + '">' +
@@ -238,7 +238,7 @@
     var likes = Number(c.likes || 0);
     return '<article class="gate-comment gate-comment-static">' +
       gateAvatarHtml(c.name, c.avatar || (team ? GATE_TEAM_AVATAR : ''), false, team) +
-      '<div class="gate-comment-main"><div class="gate-comment-copy"><b>' + esc(c.name || 'Alumna') + '</b> ' + esc(c.text) + '</div>' +
+      '<div class="gate-comment-main"><div class="gate-comment-copy"><b>' + esc(c.name || 'Aluna') + '</b> ' + esc(c.text) + '</div>' +
       '<div class="gate-comment-meta">' + (c.time ? '<span>' + esc(c.time) + '</span>' : '') +
       (likes ? '<span>' + likes + (likes === 1 ? ' me gusta' : ' me gusta') + '</span>' : '') + '</div>' +
       replies + '</div>' +
@@ -257,12 +257,18 @@
     if (cfg.mostrar_tipo_comum === true && cfg.linha_tipo_comum) {
       h += '<div class="tipo-comum">' + tpl(cfg.linha_tipo_comum) + '</div>';
     }
-    function bloco(cls, titulo, texto) {
+    function bloco(cls, titulo, texto, extra) {
       if (!texto) return '';
       return '<section class="tipo-bloco ' + cls + '">' +
         (titulo ? '<h2 class="tipo-h2">' + tpl(titulo) + '</h2>' : '') +
-        '<p class="tipo-p">' + tpl(texto) + '</p>' +
+        '<p class="tipo-p">' + tpl(texto) + '</p>' + (extra || '') +
       '</section>';
+    }
+    // Clipe do exercicio dentro do bloco C (t.c_video): mudo, em loop.
+    function videoTipo(v) {
+      if (!v || !v.src) return '';
+      return '<video class="tipo-video" src="' + esc(v.src) + '"' + (v.poster ? ' poster="' + esc(v.poster) + '"' : '') +
+        ' muted loop playsinline autoplay preload="auto" disablepictureinpicture></video>';
     }
     h += bloco('tipo-b1', ti.b1, t && t.b1);
     h += bloco('tipo-b2', ti.b2, cfg.b2);
@@ -275,7 +281,7 @@
         '<div class="ba-list ba-lista-1">' + parHtml(t.prova, true) + '</div>' +
       '</section>';
     }
-    h += bloco('tipo-c', ti.c, t && t.c);
+    h += bloco('tipo-c', ti.c, t && t.c, t && videoTipo(t.c_video));
     h += bloco('tipo-d', ti.d, t && t.d);
     if (ob) h += bloco('tipo-e', ob.titulo, ob.paragrafo);
     if (cfg.ponte) h += '<section class="tipo-bloco tipo-f"><p class="tipo-p tipo-ponte">' + tpl(cfg.ponte) + '</p></section>';
@@ -285,6 +291,37 @@
         renderChart(step) +
       '</section>';
     }
+    return h;
+  }
+
+  // "Como funciona" da oferta (pitch.comoFunciona): passos, tabela da primeira
+  // semana (exercicios por formato, duracao pelo tempo respondido) e cartoes.
+  function comoFuncionaHtml(cf) {
+    if (!cf) return '';
+    var h = '';
+    if (cf.passos && cf.passos.length) {
+      h += '<ol class="como-passos">' + cf.passos.map(function (x) { return '<li>' + tpl(x) + '</li>'; }).join('') + '</ol>';
+    }
+    var sem = cf.semana;
+    if (sem && sem.porTipo) {
+      var lista = sem.porTipo[state.vars.tipo] || sem.porTipo[sem.padrao] || [];
+      var tempos = (sem.duracoes && (sem.duracoes[state.vars.tempo_dia] || sem.duracoes['20_30'])) || [];
+      var cab = cf.semanaCab || ['', '', ''];
+      if (lista.length) {
+        h += (cf.semanaTitulo ? '<h4 class="como-h4">' + tpl(cf.semanaTitulo) + '</h4>' : '') +
+          '<table class="como-semana"><thead><tr><th>' + esc(cab[0]) + '</th><th>' + esc(cab[1]) + '</th><th>' + esc(cab[2]) + '</th></tr></thead><tbody>' +
+          lista.map(function (nome, i) {
+            var badge = (i === 0 && cf.adaptacao) ? ' <span class="como-badge">' + esc(cf.adaptacao) + '</span>' : '';
+            var min = tempos[i] != null ? tempos[i] + ' min' : '';
+            return '<tr' + (i === lista.length - 1 ? ' class="como-descanso"' : '') + '><td>' + (i + 1) + '</td><td>' + esc(nome) + badge + '</td><td>' + esc(min) + '</td></tr>';
+          }).join('') +
+          '</tbody></table>' +
+          (cf.semanaNota ? '<p class="como-nota">' + esc(cf.semanaNota) + '</p>' : '');
+      }
+    }
+    (cf.cards || []).forEach(function (c) {
+      h += '<div class="como-card"><h4 class="como-h4">' + esc(c.titulo) + '</h4><p>' + esc(c.texto) + '</p></div>';
+    });
     return h;
   }
 
@@ -319,7 +356,7 @@
   // declarado no HTML antes deste arquivo.
   // ==========================================================================
   var TRK = window.__TRACK || {};
-  var NOME_DA_OFERTA = TRK.nome || 'El Truco de las Brasileñas';
+  var NOME_DA_OFERTA = TRK.nome || 'Truque da Cavala';
 
   function dl(obj) {
     if (!window.dataLayer || !window.dataLayer.push) return;
@@ -621,7 +658,7 @@
     var controls = items.length > 1
       ? '<div class="photo-carousel-dots">' + dots + '</div>'
       : '';
-    return '<div class="photo-carousel" data-photo-carousel tabindex="0" aria-label="Fotos do treino">' +
+    return '<div class="photo-carousel" data-photo-carousel tabindex="0" aria-label="Fotos del entrenamiento">' +
       '<div class="photo-carousel-viewport"><div class="photo-carousel-track">' + slides + '</div></div>' +
       controls +
     '</div>';
@@ -698,8 +735,8 @@
   // Quem responde os comentarios e a especialista da marca. O nome e o avatar
   // saem do dado (gateTeamName / gateTeamAvatar) pra o motor nao ter nome de
   // pessoa escrito dentro dele.
-  var GATE_TEAM_NAME = data.gateTeamName || 'Brenda';
-  var GATE_TEAM_AVATAR = data.gateTeamAvatar || '/images/brenda-avatar.webp';
+  var GATE_TEAM_NAME = data.gateTeamName || 'Carolina';
+  var GATE_TEAM_AVATAR = data.gateTeamAvatar || 'images/brenda-avatar.webp';
   var gateReplyTo = null;
 
   function gateState() {
@@ -788,9 +825,9 @@
         '<a href="' + esc(l.href) + previewQs + '">' + esc(l.label) + '</a>';
     }).join('');
     var nota = cfg.note || 'Los entrenamientos y protocolos mencionados en esta página tienen carácter educativo y de acondicionamiento físico general. ' +
-      'No constituyen consulta, diagnóstico, prescripción ni tratamiento médico y no sustituyen la evaluación y autorización de un profesional de la salud. ' +
-      'Consulta a un médico antes de comenzar, especialmente si estás embarazada, tienes alguna condición de salud preexistente o tomas medicamentos.';
-    return '<footer class="gate-footer"><nav aria-label="Links legais">' + nav + '</nav>' +
+      'No constituyen consulta, diagnóstico, prescripción ni tratamiento médico, y no sustituyen la evaluación y autorización de un profesional de la salud. ' +
+      'Consulta con un médico antes de comenzar, especialmente si estás embarazada, tienes alguna condición de salud preexistente o tomas medicamentos.';
+    return '<footer class="gate-footer"><nav aria-label="Enlaces legales">' + nav + '</nav>' +
       '<p>' + esc(nota) + '</p>' +
       (cfg.company ? '<p class="gate-company">' + esc(cfg.company) + '</p>' : '') +
       '</footer>';
@@ -822,14 +859,14 @@
       '<div class="gate-eyebrow"><span aria-hidden="true">▣</span> ' + esc(step.eyebrow || 'CUESTIONARIO PERSONALIZADO') + '</div>' +
       '<h1 id="gate-title">' + tpl(step.title) + '</h1>' +
       '<button class="gate-primary" id="gate-primary" type="button">' + esc(step.cta || 'Empezar ahora') + '</button>' +
-      '<button class="gate-decline" id="gate-decline" type="button">' + esc(step.decline || 'No lo soy') + '</button>' +
+      '<button class="gate-decline" id="gate-decline" type="button">' + esc(step.decline || 'No soy') + '</button>' +
       '<p class="gate-decline-note" id="gate-decline-note" hidden>Este cuestionario fue creado para el público femenino.</p>' +
       '</section>' +
       '<section class="gate-social" aria-labelledby="gate-comments-title">' +
       '<div class="gate-comments-head" id="gate-comments-title"><svg class="gate-comment-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 4.75h14a2.25 2.25 0 0 1 2.25 2.25v8A2.25 2.25 0 0 1 19 17.25H10l-4.9 3.2.65-3.2H5A2.25 2.25 0 0 1 2.75 15V7A2.25 2.25 0 0 1 5 4.75Z"/></svg><b id="gate-comment-count">0</b> comentarios <small>· dudas sobre el cuestionario</small></div>' +
       '<div id="gate-comments-list"></div>' +
       '<form class="gate-composer" id="gate-composer"><div class="gate-replying" id="gate-replying" hidden></div>' +
-      '<div class="gate-composer-row"><span class="gate-avatar">V</span><input id="gate-comment-input" type="text" maxlength="280" autocomplete="off" placeholder="Escribe un comentario…" aria-label="Tu comentario"><button type="submit" aria-label="Enviar comentario">➤</button></div>' +
+      '<div class="gate-composer-row"><span class="gate-avatar">T</span><input id="gate-comment-input" type="text" maxlength="280" autocomplete="off" placeholder="Escribe un comentario…" aria-label="Tu comentario"><button type="submit" aria-label="Enviar comentário">➤</button></div>' +
       '<small>Tu comentario y tus respuestas se guardan solo en este dispositivo.</small></form>' +
       '</section>' +
       gateFooterHtml();
@@ -977,7 +1014,7 @@
         state.ganhoPulado = 0;
         addMeter(ganho);
         if (data.toasts !== false && step.type !== 'pitch' && step.type !== 'scratch') {
-          showToast('💪', '+' + ganho + '% en ' + METER_LABEL.toLowerCase());
+          showToast('💪', '+' + ganho + '% en el ' + METER_LABEL.toLowerCase());
           playReward();
         }
       } else if (data.meterAuto !== false) {
@@ -1233,9 +1270,9 @@
         var prizeBadge = sc.prizeBadge || 'BONO SORPRESA';
         var prizeTitle = sc.prizeTitle || '¡Ganaste un regalo!';
         var prizeDesc = sc.prizeDesc || '';
-        var hintLabel = sc.hintLabel || 'RASCA AQUÍ';
+        var hintLabel = sc.hintLabel || 'RASPA AQUÍ';
         var hintIcon = sc.hintIcon || '👆';
-        var progressNote = sc.progressNote || 'Pasa el dedo para revelar';
+        var progressNote = sc.progressNote || 'Passe o dedo pra revelar';
         return '<div class="scratch-wrap">' +
           '<div class="scratch-container" id="scratch-container">' +
             '<div class="scratch-prize" id="scratch-prize">' +
@@ -1251,7 +1288,7 @@
             '</div>' +
           '</div>' +
           '<div class="scratch-progress-note">' + esc(progressNote) + '</div>' +
-          '<button class="scratch-fallback" id="scratch-fallback" type="button">No puedo rascar — revelar</button>' +
+          '<button class="scratch-fallback" id="scratch-fallback" type="button">No puedo raspar — revelar</button>' +
         '</div>';
       }
 
@@ -1385,6 +1422,7 @@
               (clipeTreino && clipeTreino.src ? umVideo(clipeTreino, vt.legenda) : '') +
               (va && va.src ? umVideo(va, va.legenda) : '') +
             '</div>' +
+            comoFuncionaHtml(p.comoFunciona) +
           '</div>';
         }
 
@@ -1486,6 +1524,7 @@
           '<div class="pitch-price-box">' +
             '<div class="pitch-price">' + p.priceLine + '</div>' +
             '<div class="pitch-price-sub">' + esc(p.priceSub) + '</div>' +
+            (p.priceNote ? '<div class="pitch-price-note">' + esc(p.priceNote) + '</div>' : '') +
           '</div>' +
           timerBlock +
           selosBlock +
