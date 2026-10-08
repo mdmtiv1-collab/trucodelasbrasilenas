@@ -736,7 +736,7 @@
   // saem do dado (gateTeamName / gateTeamAvatar) pra o motor nao ter nome de
   // pessoa escrito dentro dele.
   var GATE_TEAM_NAME = data.gateTeamName || 'Carolina';
-  var GATE_TEAM_AVATAR = data.gateTeamAvatar || 'images/brenda-avatar.webp';
+  var GATE_TEAM_AVATAR = data.gateTeamAvatar || 'images/carolina-avatar.webp';
   var gateReplyTo = null;
 
   function gateState() {

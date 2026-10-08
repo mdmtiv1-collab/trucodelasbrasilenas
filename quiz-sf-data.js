@@ -19,7 +19,7 @@ window.QUIZ_DATA = {
   backredirectUrl: '/oferta-especial-sf?funnel=quiz-sf',
 
   gateTeamName: 'Carolina',
-  gateTeamAvatar: 'images/brenda-avatar.webp',
+  gateTeamAvatar: 'images/carolina-avatar.webp',
 
   gateFooter: {
     links: [
@@ -318,7 +318,7 @@ window.QUIZ_DATA = {
       meterGain: 5,
       title: 'Curiosidad sobre el {tipo_titulo}',
       body: '<div class="nota-brenda nota-post">' +
-        '<div class="nota-post-head"><img src="images/brenda-avatar.webp" alt="Carolina" /><span>Carolina</span></div>' +
+        '<div class="nota-post-head"><img src="images/carolina-avatar.webp" alt="Carolina" /><span>Carolina</span></div>' +
         '<p><b>{curios_a}</b></p>' +
         '<p>{curios_b}</p>' +
         '<p><b>Existe un protocolo que obliga al glúteo a volver a su estado de respuesta máxima.</b></p>' +
@@ -454,7 +454,7 @@ window.QUIZ_DATA = {
       meterGain: 5,
       armBackredirect: true,
       title: 'Quién armó tu plan',
-      body: '<img src="images/brenda-aula-cavala-web.jpg" alt="Carolina" style="width:100%;margin:10px 0;border-radius:16px" />' +
+      body: '<img src="images/carolina-aula-web.jpg" alt="Carolina" style="width:100%;margin:10px 0;border-radius:16px" />' +
         '<b>Carolina, fundadora del Truco de las Brasileñas</b>, educadora física desde hace <b>más de 15 años</b>, <b>más de 50 mil seguidores</b> en redes y ' +
         '<b>más de 17 mil alumnas</b> en Latinoamérica y el mundo.',
       cta: 'VER MI PLAN',
