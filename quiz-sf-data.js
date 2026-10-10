@@ -496,7 +496,7 @@ window.QUIZ_DATA = {
 
         // "Como funciona": video da app + passos + primeira semana + cartoes.
         videosTitle: 'Cómo funciona',
-        videoApp: { src: 'videos/app-por-dentro-loop.mp4', poster: 'videos/app-por-dentro-loop.jpg', legenda: 'La app por dentro: cada ejercicio con video y las repeticiones del día.' },
+        videoApp: { src: 'videos/app-por-dentro-v2.mp4', poster: 'videos/app-por-dentro-v2.jpg', legenda: 'La app por dentro: cada ejercicio con video y las repeticiones del día.' },
         comoFunciona: {
           passos: [
             'Pago aprobado.',
