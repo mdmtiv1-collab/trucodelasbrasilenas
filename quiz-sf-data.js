@@ -556,8 +556,8 @@ window.QUIZ_DATA = {
 
         scarcity: 'Cupos con bonos disponibles <b>solo hoy</b>',
 
-        priceLine: 'De <s>US$ 147,00</s> por solo <b>US$ 9,90</b>',
-        priceSub: 'Pago único de US$ 9,90 — menos de US$ 1,00 por día de reto',
+        priceLine: 'De <s>US$ 147,00</s> por solo <b>US$ 12,90</b>',
+        priceSub: 'Pago único de US$ 12,90 — menos de US$ 1,00 por día de reto',
         priceNote: 'El valor está en dólares (USD). En la siguiente página se ajusta a tu moneda local.',
 
         timerMinutes: 10,
