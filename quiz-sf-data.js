@@ -523,7 +523,6 @@ window.QUIZ_DATA = {
           },
           cards: [
             { titulo: 'Acceso', texto: 'Pago único, sin mensualidad. El acceso a la app (Android e iPhone) se libera después del pago, y el login llega por e-mail y WhatsApp.' },
-            { titulo: 'Cómo pedir la garantía', texto: 'Dentro de los 30 días, manda "quiero la garantía" al e-mail contato@sejafit.site o al WhatsApp de Jacque, (31) 99277-8823. Sin preguntas.' },
           ],
         },
 
